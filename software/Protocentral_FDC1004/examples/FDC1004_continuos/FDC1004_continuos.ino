@@ -6,8 +6,8 @@
 -------   -------------
      5V - Vin
     GND - GND
-    SDA - A4
-    SCL - A5
+     A4 - SDA
+     A5 - SCL
 */	
 	
 #include <Wire.h>
