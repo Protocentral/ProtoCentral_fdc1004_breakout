@@ -51,8 +51,7 @@ Arduino boards connections
  b. Click on File -> Open and Browse the .ino code for Arduino from Protocentral_FDC1004-master\arduino and export the application to Arduino.
  
  c.  Open serial terminal window, you should see the capacitance values obtained from the FDC1004 Breakout Board as shown below.
-
-    ![Read RAW	capacitance](https://www.protocentral.com/img/p/4/2/1/2/4212.jpg?time=1482129242629)
+![Read RAW	capacitance](https://www.protocentral.com/img/p/4/2/1/2/4212.jpg?time=1482129242629)
 
 
 License Information
