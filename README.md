@@ -41,8 +41,8 @@ Arduino boards connections
     -------   -------------
          5V - VCC
         GND - GND
-        SDA - A4
-        SCL - A5
+         A4 - SDA
+         A5 - SCL
  
 ###  Uploading Arduino Sketch For FDC1004 breakout
 
