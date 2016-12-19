@@ -39,34 +39,20 @@ Arduino boards connections
 
     Arduino   FDC1004 board
     -------   -------------
-         5V - VIN
+         5V - VCC
         GND - GND
-        SDA - SDA
-        SCL - SCL
+        SDA - A4
+        SCL - A5
  
-###  Uploading Arduino Sketch For VL530lx breakout
+###  Uploading Arduino Sketch For FDC1004 breakout
 
- a. Open the Arduino IDE to load the embedded code for VL530lx.
+ a. Open the Arduino IDE to load the embedded code for Protocentral_FDC1004.
 
- b. Click on File -> Open and Browse the .ino code for Arduino from Protocentral_VL530lx-master\arduino and export the application to Arduino.
+ b. Click on File -> Open and Browse the .ino code for Arduino from Protocentral_FDC1004-master\arduino and export the application to Arduino.
+ 
+ c.  You should see the capacitance values obtained from the FDC1004 Breakout Board as shown below.
 
-###  Open Processing & launch the openview_tof
-
- a. If Processing IDE was open, close it and reopen to refresh the libraries and sketches. The repositories are not refreshed if the IDE was open while the Sketches and Libraries were being updated.
-
- b. Double-click any of the .pde files in the openview_pulseox directory to open all of the pulse oximeter code in the Processing IDE.
-
- c. If everything done so far was good, clicking the "run" button on the top left corner of the IDE, should run the code! If it does not, make sure you installed your libraries correctly.
-
- d. Once the GUI is running, select the port connect with breakout board from the "SELECT PORT" dropdown as shown in the figure below
-
-![Port Selection](https://github.com/Protocentral/Protocentral_VL530LX/blob/master/Processing%20Code/Final%20Output/portselection.png)
-
- e. Once the port selection is appropriate the START button gets enabled. Click "START" to initiate visualization
-
- f. You should see the PPG ( RED and IR) waves generated with the values obtained from the AFE4490 Oximeter Shield Breakout Board as shown below.
-
-![Read mm Form in Processing](https://github.com/Protocentral/Protocentral_VL530LX/blob/master/Processing%20Code/Final%20Output/output.png)
+    ![Read RAW	capacitance](https://www.protocentral.com/img/p/4/2/1/2/4212.jpg?time=1482129242629)
 
 
 License Information
