@@ -1,6 +1,6 @@
 ProtoCentral FDC1004 Capacitance Sensor Breakout Board
 ================================
-[![Laser Sensor](https://www.protocentral.com/4064-large_default/protocentral-vl53l0x-laser-tof-sensor-breakout.jpg)  
+[![Laser Sensor](https://www.protocentral.com/4220-thickbox_default/fdc1004-capacitance-converter-breakout-board.jpg)  
 *PROTOCENTRAL FDC1004 CAPACITANCE SENSOR BREAKOUT BOARD (PC-SEN-2002)*](https://www.protocentral.com/gasliquid/1082-fdc1004-capacitance-converter-breakout-board.html?search_query=fdc1004&results=1)
 
 The FDC1004 is a single-chip IC for capacitance measurement for application including proximity sensing and liquid level sensing. This is based on the concept of measuring capacitance of an electrode with respect to ground. 
