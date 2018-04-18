@@ -1,3 +1,22 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+//    Arduino library for the FDC1004 capacitance sensor breakout board
+//
+//    Author: Ashwin Whitchurch
+//    Copyright (c) 2018 ProtoCentral
+//
+//    Based on original code written by Benjamin Shaya
+//
+//    This software is licensed under the MIT License(http://opensource.org/licenses/MIT).
+//
+//   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+//   NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+//   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+//   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//   For information on how to use, visit https://github.com/protocentral/ProtoCentral_fdc1004_breakout
+/////////////////////////////////////////////////////////////////////////////////////////
 
 #include <Protocentral_FDC1004.h>
 
@@ -10,7 +29,7 @@ uint8_t MEAS_LSB[] = {0x01, 0x03, 0x05, 0x07};
 uint8_t SAMPLE_DELAY[] = {11,11,6,3};
 
 FDC1004::FDC1004(uint16_t rate){
-  this->_addr = 0b1010000; 
+  this->_addr = 0b1010000;
   this->_rate = rate;
 }
 
@@ -36,14 +55,14 @@ uint16_t FDC1004::read16(uint8_t reg) {
   return value;
 }
 
-//configure a measurement 
+//configure a measurement
 uint8_t FDC1004::configureMeasurementSingle(uint8_t measurement, uint8_t channel, uint8_t capdac) {
     //Verify data
     if (!FDC1004_IS_MEAS(measurement) || !FDC1004_IS_CHANNEL(channel) || capdac > FDC1004_CAPDAC_MAX) {
         Serial.println("bad configuration");
         return 1;
     }
-    
+
     //build 16 bit configuration
     uint16_t configuration_data;
     configuration_data = ((uint16_t)channel) << 13; //CHA
@@ -75,17 +94,17 @@ uint8_t FDC1004::readMeasurement(uint8_t measurement, uint16_t * value) {
         Serial.println("bad read request");
         return 1;
     }
-    
+
     //check if measurement is complete
     uint16_t fdc_register = read16(FDC_REGISTER);
     if (! (fdc_register & ( 1 << (3-measurement)))) {
         Serial.println("measurement not completed");
         return 2;
     }
-  
+
   //read the value
   uint16_t msb = read16(MEAS_MSB[measurement]);
-  uint16_t lsb = read16(MEAS_LSB[measurement]);  
+  uint16_t lsb = read16(MEAS_LSB[measurement]);
   value[0] = msb;
   value[1] = lsb;
   return 0;
@@ -109,11 +128,9 @@ int32_t FDC1004::getCapacitance(uint8_t channel) {
     fdc1004_measurement_t value;
     uint8_t result = getRawCapacitance(channel, &value);
     if (result) return 0x80000000;
-    
+
     int32_t capacitance = ((int32_t)ATTOFARADS_UPPER_WORD) * ((int32_t)value.value); //attofarads
     capacitance /= 1000; //femtofarads
     capacitance += ((int32_t)FEMTOFARADS_CAPDAC) * ((int32_t)value.capdac);
     return capacitance;
 }
-
-
