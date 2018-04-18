@@ -12,7 +12,7 @@ The FDC1004 is a single-chip IC for capacitance measurement for application incl
 
 This breakout board contains everything to connect it to an Arduino's I2C pins and it can be connected to any other platform with support for I2C two-wire interfaces.
 
-We have made several cool projects with it including proximity sensing and liquid-level sensing from the outside of a tank. Check out our Hackster page (hackster.io/protocentral) for the detailed project description.
+We have made several cool projects with it including proximity sensing and liquid-level sensing from the outside of a tank. Check out our [Hackster page](https://www.hackster.io/team-protocentral/non-contact-capacitive-liquid-level-sensing-using-fdc1004-9333c7) for the detailed project description.
 
 ## Features
 
@@ -23,9 +23,9 @@ We have made several cool projects with it including proximity sensing and liqui
 * Easy-to-use I2C interface
 
 ## Specifications
-Capacitance measurement range: +/- 15 pF
-Resolution: 0.5 fF
-Maximum offset capacitance: 100 pF
+* Capacitance measurement range: +/- 15 pF
+* Resolution: 0.5 fF
+* Maximum offset capacitance: 100 pF
 
 ## Includes
 * 1x ProtoCentral FDC1004 Capacitance Sensor Breakout Board
@@ -36,7 +36,7 @@ Maximum offset capacitance: 100 pF
 * **/software** - Arduino library and example sketch
 * **/hardware** - All Eagle design files (.brd, .sch)
 
-## Connecting the breakout to an Arduino Arduino
+## Connecting the breakout to an Arduino
 
 Wire the FDC1004 breakout to an Arduino Uno using the following connections.
 
@@ -48,7 +48,7 @@ Wire the FDC1004 breakout to an Arduino Uno using the following connections.
          A4 <-> SDA
          A5 <-> SCL
 
-###  Uploading Arduino Sketch For FDC1004 breakout
+##  Uploading Arduino Sketch For FDC1004 breakout
 
 1. Open the Arduino IDE to load the embedded code for Protocentral_FDC1004.
 
@@ -56,17 +56,15 @@ Wire the FDC1004 breakout to an Arduino Uno using the following connections.
 
 3.  Open serial terminal window, you should see the capacitance values obtained from the FDC1004 Breakout Board.
 
-License Information
-===================
+# License Information
+
 This product is open source! Both, our hardware and software are open source and licensed under the following licenses:
 
-Hardware
----------
+## Hardware
 **All hardware is released under [Creative Commons Share-alike 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/).**
 ![CC-BY-SA-4.0](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
 
-Software
---------
+## Software
 **All software is released under the MIT License(http://opensource.org/licenses/MIT).**
 
 Please check [*LICENSE.md*](LICENSE.md) for detailed license descriptions.
