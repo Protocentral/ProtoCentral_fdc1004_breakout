@@ -28,12 +28,14 @@ uint8_t MEAS_MSB[] = {0x00, 0x02, 0x04, 0x06};
 uint8_t MEAS_LSB[] = {0x01, 0x03, 0x05, 0x07};
 uint8_t SAMPLE_DELAY[] = {11,11,6,3};
 
-FDC1004::FDC1004(uint16_t rate){
+FDC1004::FDC1004(uint16_t rate)
+{
   this->_addr = 0b1010000;
   this->_rate = rate;
 }
 
-void FDC1004::write16(uint8_t reg, uint16_t data) {
+void FDC1004::write16(uint8_t reg, uint16_t data)
+{
   Wire.beginTransmission(_addr);
   Wire.write(reg); //send address
   Wire.write( (uint8_t) (data >> 8));
@@ -41,7 +43,8 @@ void FDC1004::write16(uint8_t reg, uint16_t data) {
   Wire.endTransmission();
 }
 
-uint16_t FDC1004::read16(uint8_t reg) {
+uint16_t FDC1004::read16(uint8_t reg)
+{
   Wire.beginTransmission(_addr);
   Wire.write(reg);
   Wire.endTransmission();
@@ -56,7 +59,8 @@ uint16_t FDC1004::read16(uint8_t reg) {
 }
 
 //configure a measurement
-uint8_t FDC1004::configureMeasurementSingle(uint8_t measurement, uint8_t channel, uint8_t capdac) {
+uint8_t FDC1004::configureMeasurementSingle(uint8_t measurement, uint8_t channel, uint8_t capdac)
+{
     //Verify data
     if (!FDC1004_IS_MEAS(measurement) || !FDC1004_IS_CHANNEL(channel) || capdac > FDC1004_CAPDAC_MAX) {
         Serial.println("bad configuration");
@@ -72,7 +76,8 @@ uint8_t FDC1004::configureMeasurementSingle(uint8_t measurement, uint8_t channel
     return 0;
 }
 
-uint8_t FDC1004::triggerSingleMeasurement(uint8_t measurement, uint8_t rate) {
+uint8_t FDC1004::triggerSingleMeasurement(uint8_t measurement, uint8_t rate)
+{
   //verify data
     if (!FDC1004_IS_MEAS(measurement) || !FDC1004_IS_RATE(rate)) {
         Serial.println("bad trigger request");
@@ -89,7 +94,8 @@ uint8_t FDC1004::triggerSingleMeasurement(uint8_t measurement, uint8_t rate) {
  * Check if measurement is done, and read the measurement into value if so.
   * value should be at least 4 bytes long (24 bit measurement)
  */
-uint8_t FDC1004::readMeasurement(uint8_t measurement, uint16_t * value) {
+uint8_t FDC1004::readMeasurement(uint8_t measurement, uint16_t * value)
+{
     if (!FDC1004_IS_MEAS(measurement)) {
         Serial.println("bad read request");
         return 1;
@@ -113,7 +119,8 @@ uint8_t FDC1004::readMeasurement(uint8_t measurement, uint16_t * value) {
 /**
  * take a measurement, uses the measurement register equal to the channel number
  */
-uint8_t FDC1004::measureChannel(uint8_t channel, uint8_t capdac, uint16_t * value) {
+uint8_t FDC1004::measureChannel(uint8_t channel, uint8_t capdac, uint16_t * value)
+{
   uint8_t measurement = channel; //4 measurement configs, 4 channels, seems fair
   if (configureMeasurementSingle(measurement, channel, capdac)) return 1;
   if (triggerSingleMeasurement(measurement, this->_rate)) return 1;
@@ -124,7 +131,8 @@ uint8_t FDC1004::measureChannel(uint8_t channel, uint8_t capdac, uint16_t * valu
 /**
  *  function to get the capacitance from a channel.
   */
-int32_t FDC1004::getCapacitance(uint8_t channel) {
+int32_t FDC1004::getCapacitance(uint8_t channel)
+{
     fdc1004_measurement_t value;
     uint8_t result = getRawCapacitance(channel, &value);
     if (result) return 0x80000000;

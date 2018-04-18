@@ -1,6 +1,6 @@
 ProtoCentral FDC1004 capacitance sensor breakout board
 ================================
-![FDC1004 Breakout](images/fdc1004_brk.jpg)  
+![FDC1004 Breakout](docs/images/fdc1004_brk.jpg)  
 
 If you don't already have one, you can buy the ProtoCentral FDC1004 breakout board from:
 
