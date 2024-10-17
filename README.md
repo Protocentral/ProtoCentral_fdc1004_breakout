@@ -1,12 +1,11 @@
-ProtoCentral FDC1004 capacitance sensor breakout board
+Protocentral FDC1004 capacitance sensor breakout board
 ================================
 ![FDC1004 Breakout](docs/images/fdc1004_brk.jpg)  
 
 If you don't already have one, you can buy the ProtoCentral FDC1004 breakout board from:
 
-* [ProtoCentral(Worldwide)](https://www.protocentral.com/gasliquid/1082-fdc1004-capacitance-converter-breakout-board-0642078949616.html)
+* [ProtoCentral(Worldwide)](https://protocentral.com/product/protocentral-fdc1004-capacitance-sensor-breakout-board/)
 
-* [ProtoCentral USA](https://protocentral.us/breakout-boards/9-prototypical-fdc1004-capacitance-sensor-breakout-board.html)
 
 The FDC1004 is a single-chip IC for capacitance measurement for application including proximity sensing and liquid level sensing. This is based on the concept of measuring capacitance of an electrode with respect to ground.
 
@@ -36,25 +35,15 @@ We have made several cool projects with it including proximity sensing and liqui
 * **/software** - Arduino library and example sketch
 * **/hardware** - All Eagle design files (.brd, .sch)
 
-## Connecting the breakout to an Arduino
+<br>
+<center>
+<a href="https://protocentral.github.io/docs/" target="_blank">
+  <button>Get Started with FDC1004 Breakout Board Guide</button>
+</a>
+</center>
+</br>
 
-Wire the FDC1004 breakout to an Arduino Uno using the following connections.
 
-
-    Arduino   FDC1004 board
-    -------   -------------
-         5V <-> VCC
-        GND <-> GND
-         A4 <-> SDA
-         A5 <-> SCL
-
-##  Uploading Arduino Sketch For FDC1004 breakout
-
-1. Open the Arduino IDE to load the embedded code for Protocentral_FDC1004.
-
-2. Click on File -> Open and Browse the .ino code for Arduino from Protocentral_FDC1004-master\arduino and export the application to Arduino.
-
-3.  Open serial terminal window, you should see the capacitance values obtained from the FDC1004 Breakout Board.
 
 License Information
 ===================
