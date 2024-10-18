@@ -49,12 +49,10 @@ uint16_t FDC1004::read16(uint8_t reg)
   Wire.write(reg);
   Wire.endTransmission();
   uint16_t value;
-  Wire.beginTransmission(_addr);
   Wire.requestFrom(_addr, (uint8_t)2);
   value = Wire.read();
   value <<= 8;
   value |= Wire.read();
-  Wire.endTransmission();
   return value;
 }
 
@@ -88,6 +86,7 @@ uint8_t FDC1004::triggerSingleMeasurement(uint8_t measurement, uint8_t rate)
     trigger_data |= 0 << 8; //repeat disabled
     trigger_data |= (1 << (7-measurement)); // 0 > bit 7, 1 > bit 6, etc
     write16(FDC_REGISTER, trigger_data);
+    return 0;
 }
 
 /**
