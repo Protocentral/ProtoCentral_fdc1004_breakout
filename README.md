@@ -37,7 +37,7 @@ We have made several cool projects with it including proximity sensing and liqui
 
 <br>
 <center>
-<a href="https://protocentral.github.io/docs/" target="_blank">
+<a href="https://docs.protocentral.com/getting-started-with-FDC1004/" target="_blank">
   <button>Get Started with FDC1004 Breakout Board Guide</button>
 </a>
 </center>
