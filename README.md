@@ -1,10 +1,10 @@
 Protocentral FDC1004 capacitance sensor breakout board
 ================================
-![FDC1004 Breakout](docs/images/fdc1004_brk.jpg)  
+[![Compile Examples](https://github.com/Protocentral/ProtoCentral_fdc1004_breakout/workflows/Compile%20Examples/badge.svg)](https://github.com/Protocentral/ProtoCentral_fdc1004_breakout/actions?workflow=Compile+Examples) 
 
-If you don't already have one, you can buy the ProtoCentral FDC1004 breakout board from:
+## Don't have one? [Buy it here](https://protocentral.com/product/protocentral-fdc1004-capacitance-sensor-breakout-board/)
 
-* [ProtoCentral(Worldwide)](https://protocentral.com/product/protocentral-fdc1004-capacitance-sensor-breakout-board/)
+![FDC1004 Breakout](docs/images/fdc1004_brk.jpg) 
 
 
 The FDC1004 is a single-chip IC for capacitance measurement for application including proximity sensing and liquid level sensing. This is based on the concept of measuring capacitance of an electrode with respect to ground.
@@ -13,40 +13,30 @@ This breakout board contains everything to connect it to an Arduino's I2C pins a
 
 We have made several cool projects with it including proximity sensing and liquid-level sensing from the outside of a tank. Check out our [Hackster page](https://www.hackster.io/team-protocentral/non-contact-capacitive-liquid-level-sensing-using-fdc1004-9333c7) for the detailed project description.
 
-## Features
+## Hardware Setup
+Connection with the Arduino board is as follows:
 
-* Breakout contains the Texas Instruments FDC1004 IC
-* 4 channel measurement
-* On-board 3.3V voltage regulator
-* Output data rates up to 400 Samples/second
-* Easy-to-use I2C interface
+|FDC1004 pin label| Arduino Connection  |Pin Function      |
+ |:-----------------: |:---------------------:|:------------------:|
+ | GND                | GND                   |  GND               |
+ | SCL                | A5                    |  Serial Clock      |
+ | Vcc                | 5V                    |  Power             |
+ | SDA                | A4                    |  Serial Data       |
 
-## Specifications
-* Capacitance measurement range: +/- 15 pF
-* Resolution: 0.5 fF
-* Maximum offset capacitance: 100 pF
 
-## Includes
-* 1x ProtoCentral FDC1004 Capacitance Sensor Breakout Board
-* 1x Set of breakaway headers
-
-## Repository Contents
-
-* **/software** - Arduino library and example sketch
-* **/hardware** - All Eagle design files (.brd, .sch)
-
-<br>
+For further details of the board, refer the documentation
 <center>
-<a href="https://docs.protocentral.com/getting-started-with-FDC1004/" target="_blank">
-  <button>Get Started with FDC1004 Breakout Board Guide</button>
-</a>
+
+[ FDC1004 breakout board Documentation](https://docs.protocentral.com/getting-started-with-FDC1004/)
+
 </center>
-</br>
 
 
 
 License Information
 ===================
+
+![License](license_mark.svg)
 
 This product is open source! Both, our hardware and software are open source and licensed under the following licenses:
 
