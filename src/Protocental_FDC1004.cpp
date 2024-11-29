@@ -88,6 +88,7 @@ uint8_t FDC1004::triggerSingleMeasurement(uint8_t measurement, uint8_t rate)
     trigger_data |= 0 << 8; //repeat disabled
     trigger_data |= (1 << (7-measurement)); // 0 > bit 7, 1 > bit 6, etc
     write16(FDC_REGISTER, trigger_data);
+    return 0;
 }
 
 /**
