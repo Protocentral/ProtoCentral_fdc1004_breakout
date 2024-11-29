@@ -49,12 +49,10 @@ uint16_t FDC1004::read16(uint8_t reg)
   Wire.write(reg);
   Wire.endTransmission();
   uint16_t value;
-  Wire.beginTransmission(_addr);
   Wire.requestFrom(_addr, (uint8_t)2);
   value = Wire.read();
   value <<= 8;
   value |= Wire.read();
-  Wire.endTransmission();
   return value;
 }
 
