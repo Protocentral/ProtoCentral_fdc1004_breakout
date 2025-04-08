@@ -25,7 +25,7 @@ Connection with the Arduino board is as follows:
 
 
 
-## For further details of the board, refer [the documentation on FDC1004 breakout board](https://docs.protocentral.com/getting-started-with-FDC1004/)
+## For further details, refer [the documentation on FDC1004 breakout board](https://docs.protocentral.com/getting-started-with-FDC1004/)
 
 
 
