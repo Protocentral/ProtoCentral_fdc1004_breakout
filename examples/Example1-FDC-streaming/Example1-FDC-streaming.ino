@@ -1,21 +1,21 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-//    Demo code for the FDC1004 capacitance sensor breakout board
+//    New API demo for the FDC1004 capacitance sensor breakout board
 //
-//    Author: Ashwin Whitchurch
+//    Author: Ashwin Whitchurch (Updated to New API)
 //    Copyright (c) 2018 ProtoCentral
 //
-//    This example measures raw capacitance across CHANNEL0 and Gnd and
-//		prints on serial terminal
+//    This example measures capacitance on CHANNEL0 using the new API with
+//    automatic CAPDAC adjustment and improved error handling.
 //
-//		Arduino connections:
+//    Arduino connections:
 //
-//		Arduino   FDC1004 board
-//		-------   -------------
-//		5V - Vin
-// 	 GND - GND
-//		A4 - SDA
-//		A5 - SCL
+//    Arduino   FDC1004 board
+//    -------   -------------
+//    5V     -> Vin
+//    GND    -> GND
+//    A4     -> SDA
+//    A5     -> SCL
 //
 //    This software is licensed under the MIT License(http://opensource.org/licenses/MIT).
 //
@@ -31,51 +31,83 @@
 #include <Wire.h>
 #include <Protocentral_FDC1004.h>
 
-#define UPPER_BOUND  0X4000                 // max readout capacitance
-#define LOWER_BOUND  (-1 * UPPER_BOUND)
-#define CHANNEL 0                          // channel to be read
-#define MEASURMENT 0                       // measurment channel
+// Create FDC1004 instance with 100Hz sample rate
+FDC1004 capacitanceSensor(FDC1004_RATE_100HZ);
 
-int capdac = 0;
-char result[100];
-
-FDC1004 FDC;
-
-void setup()
-{
-  Wire.begin();        //i2c begin
-  Serial.begin(115200); // serial baud rate
+void setup() {
+    Serial.begin(115200);
+    Wire.begin();
+    
+    Serial.println("FDC1004 Capacitance Sensor - New API");
+    Serial.println("====================================");
+    
+    // Initialize the sensor with error checking
+    if (capacitanceSensor.begin()) {
+        Serial.println("✓ FDC1004 sensor initialized successfully");
+    } else {
+        Serial.println("✗ Failed to initialize FDC1004 sensor");
+        Serial.println("Check wiring and restart Arduino");
+        while (1) {
+            delay(1000); // Stop execution and blink LED if available
+        }
+    }
+    
+    // Verify device connection
+    if (capacitanceSensor.isConnected()) {
+        Serial.println("✓ FDC1004 device is responding");
+    } else {
+        Serial.println("✗ FDC1004 device not responding");
+        Serial.println("Check I2C connections");
+    }
+    
+    Serial.println();
+    Serial.println("Starting continuous measurements on Channel 0...");
+    Serial.println("Time(ms)\tCapacitance(pF)\tCAPDAC\tStatus");
+    Serial.println("----------------------------------------------");
 }
 
-void loop()
-{
-
-  FDC.configureMeasurementSingle(MEASURMENT, CHANNEL, capdac);
-  FDC.triggerSingleMeasurement(MEASURMENT, FDC1004_100HZ);
-
-  //wait for completion
-  delay(15);
-  uint16_t value[2];
-  if (! FDC.readMeasurement(MEASURMENT, value))
-  {
-    int16_t msb = (int16_t) value[0];
-    int32_t capacitance = ((int32_t)457) * ((int32_t)msb); //in attofarads
-    capacitance /= 1000;   //in femtofarads
-    capacitance += ((int32_t)3028) * ((int32_t)capdac);
-
-    Serial.print((((float)capacitance/1000)),4);
-    Serial.print("  pf, ");
-
-    if (msb > UPPER_BOUND)               // adjust capdac accordingly
-	{
-      if (capdac < FDC1004_CAPDAC_MAX)
-	  capdac++;
+void loop() {
+    static unsigned long lastMeasurement = 0;
+    
+    // Take measurement every 250ms for smooth streaming
+    if (millis() - lastMeasurement >= 250) {
+        
+        // Get comprehensive measurement data using new API
+        fdc1004_capacitance_t measurement = capacitanceSensor.getCapacitanceMeasurement(FDC1004_CHANNEL_0);
+        
+        // Print timestamp
+        Serial.print(millis());
+        Serial.print("\t\t");
+        
+        // Check if measurement was successful
+        if (!isnan(measurement.capacitance_pf)) {
+            // Print capacitance value with 4 decimal places
+            Serial.print(measurement.capacitance_pf, 4);
+            Serial.print("\t\t");
+            
+            // Print CAPDAC value being used
+            Serial.print(measurement.capdac_used);
+            Serial.print("\t");
+            
+            // Print status information
+            if (measurement.capdac_out_of_range) {
+                Serial.println("CAPDAC ADJUST");
+            } else {
+                Serial.println("OK");
+            }
+            
+        } else {
+            // Handle measurement error
+            Serial.println("ERROR\t\t-\tMEASUREMENT FAILED");
+        }
+        
+        lastMeasurement = millis();
     }
-	else if (msb < LOWER_BOUND)
-	{
-      if (capdac > 0)
-	  capdac--;
-    }
-
-  }
+    
+    // Alternative: Use the simple interface for basic measurements
+    // float capacitance = capacitanceSensor.getCapacitancePicofarads(FDC1004_CHANNEL_0);
+    // if (!isnan(capacitance)) {
+    //     Serial.print(capacitance, 4);
+    //     Serial.println(" pF");
+    // }
 }
