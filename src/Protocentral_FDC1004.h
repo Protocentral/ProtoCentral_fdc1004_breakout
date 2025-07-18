@@ -32,9 +32,50 @@
                             x == FDC1004_200HZ || \
                             x == FDC1004_400HZ)
 
-#define FDC1004_CAPDAC_MAX (0x1F)
+// Sample rate constants for new enum
+#define FDC1004_SAMPLE_RATE_100HZ (0x01)
+#define FDC1004_SAMPLE_RATE_200HZ (0x02)
+#define FDC1004_SAMPLE_RATE_400HZ (0x03)
 
+// I2C Address
+#define FDC1004_I2C_ADDRESS (0x50)
+
+// Register addresses
+#define FDC1004_REG_MEAS1_MSB (0x00)
+#define FDC1004_REG_MEAS1_LSB (0x01)
+#define FDC1004_REG_MEAS2_MSB (0x02)
+#define FDC1004_REG_MEAS2_LSB (0x03)
+#define FDC1004_REG_MEAS3_MSB (0x04)
+#define FDC1004_REG_MEAS3_LSB (0x05)
+#define FDC1004_REG_MEAS4_MSB (0x06)
+#define FDC1004_REG_MEAS4_LSB (0x07)
+#define FDC1004_REG_CONF_MEAS1 (0x08)
+#define FDC1004_REG_CONF_MEAS2 (0x09)
+#define FDC1004_REG_CONF_MEAS3 (0x0A)
+#define FDC1004_REG_CONF_MEAS4 (0x0B)
+#define FDC1004_REG_FDC_CONF (0x0C)
+#define FDC1004_REG_DEVICE_ID (0xFF)
+
+// Configuration bit shifts
+#define FDC1004_CONF_MEAS_CHA_SHIFT (13)
+#define FDC1004_CONF_MEAS_CHB_SHIFT (10)
+#define FDC1004_CONF_MEAS_CAPDAC_SHIFT (5)
+#define FDC1004_CONF_MEAS_CHB_DISABLED (0x7)
+
+#define FDC1004_FDC_CONF_RATE_SHIFT (10)
+#define FDC1004_FDC_CONF_REPEAT_SHIFT (8)
+
+// Measurement bounds for CAPDAC adjustment
+#define FDC1004_UPPER_BOUND (0x4000)
+#define FDC1004_LOWER_BOUND (-0x4000)
+
+// Conversion constants
+#define FDC1004_ATTOFARADS_UPPER_WORD (457)
+#define FDC1004_FEMTOFARADS_CAPDAC (3028)
+
+#define FDC1004_CAPDAC_MAX (0x1F)
 #define FDC1004_CHANNEL_MAX (0x03)
+#define FDC1004_MEASUREMENT_MAX (0x03)
 #define FDC1004_IS_CHANNEL(x) (x >= 0 && x <= FDC1004_CHANNEL_MAX)
 
 #define FDC1004_MEAS_MAX (0x03)
