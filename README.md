@@ -6,7 +6,6 @@ Protocentral FDC1004 capacitance sensor breakout board
 
 ![FDC1004 Breakout](docs/images/fdc1004_brk.jpg) 
 
-
 The FDC1004 is a single-chip IC for capacitance measurement for application including proximity sensing and liquid level sensing. This is based on the concept of measuring capacitance of an electrode with respect to ground.
 
 This breakout board contains everything to connect it to an Arduino's I2C pins and it can be connected to any other platform with support for I2C two-wire interfaces.
@@ -61,13 +60,7 @@ void setup() {
 ### Backwards Compatibility
 All existing code will continue to work without modification. The library maintains full backwards compatibility with the original Wire interface.
 
-
-
 ## For further details, refer [the documentation on FDC1004 breakout board](https://docs.protocentral.com/getting-started-with-FDC1004/)
-
-
-
-
 
 License Information
 ===================
