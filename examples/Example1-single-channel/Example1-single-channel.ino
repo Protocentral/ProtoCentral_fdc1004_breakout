@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-//    New API demo for the FDC1004 capacitance sensor breakout board
+//    Basic Single channel demo for the FDC1004 capacitance sensor breakout board
 //
-//    Author: Ashwin Whitchurch (Updated to New API)
-//    Copyright (c) 2018 ProtoCentral
+//    Author: Ashwin Whitchurch 
+//    Copyright (c) 2018-2025 Protocentral Electronics
 //
-//    This example measures capacitance on CHANNEL0 using the new API with
-//    automatic CAPDAC adjustment and improved error handling.
+//    This example measures capacitance on CHANNEL0 with
+//    automatic CAPDAC adjustment.
 //
 //    Arduino connections:
 //
@@ -26,6 +26,7 @@
 //   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 //   For information on how to use, visit https://github.com/protocentral/ProtoCentral_fdc1004_breakout
+//
 /////////////////////////////////////////////////////////////////////////////////////////
 
 #include <Wire.h>
@@ -38,8 +39,8 @@ void setup() {
     Serial.begin(115200);
     Wire.begin();
     
-    Serial.println("FDC1004 Capacitance Sensor - New API");
-    Serial.println("====================================");
+    Serial.println("FDC1004 Capacitance Sensor");
+    Serial.println("==========================");
     
     // Initialize the sensor with error checking
     if (capacitanceSensor.begin()) {
@@ -48,7 +49,7 @@ void setup() {
         Serial.println("✗ Failed to initialize FDC1004 sensor");
         Serial.println("Check wiring and restart Arduino");
         while (1) {
-            delay(1000); // Stop execution and blink LED if available
+            delay(1000); 
         }
     }
     
@@ -69,10 +70,9 @@ void setup() {
 void loop() {
     static unsigned long lastMeasurement = 0;
     
-    // Take measurement every 250ms for smooth streaming
+    // Take measurement every 250ms
     if (millis() - lastMeasurement >= 250) {
         
-        // Get comprehensive measurement data using new API
         fdc1004_capacitance_t measurement = capacitanceSensor.getCapacitanceMeasurement(FDC1004_CHANNEL_0);
         
         // Print timestamp
@@ -103,11 +103,4 @@ void loop() {
         
         lastMeasurement = millis();
     }
-    
-    // Alternative: Use the simple interface for basic measurements
-    // float capacitance = capacitanceSensor.getCapacitancePicofarads(FDC1004_CHANNEL_0);
-    // if (!isnan(capacitance)) {
-    //     Serial.print(capacitance, 4);
-    //     Serial.println(" pF");
-    // }
 }

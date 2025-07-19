@@ -9,7 +9,7 @@
 //    - Error handling and status reporting
 //
 //    Author: Ashwin Whitchurch
-//    Copyright (c) 2018 ProtoCentral
+//    Copyright (c) 2018-2025 Protocentral Electronics
 //
 //    Arduino connections:
 //
@@ -32,7 +32,7 @@ FDC1004 capacitanceSensor(FDC1004_RATE_100HZ);
 
 // Configuration
 const uint8_t NUM_CHANNELS = 4;
-const uint16_t MEASUREMENT_DELAY_MS = 500; // Half second between complete channel scans
+const uint16_t MEASUREMENT_DELAY_MS = 500; // Delay between complete channel scans
 
 void setup()
 {
@@ -186,7 +186,6 @@ void printMeasurementResults(float *values, bool *valid, uint8_t *capdac, bool *
     Serial.println();
 }
 
-// Optional: Function to get detailed channel information
 void printChannelDetails()
 {
     Serial.println("\nDetailed Channel Information:");
