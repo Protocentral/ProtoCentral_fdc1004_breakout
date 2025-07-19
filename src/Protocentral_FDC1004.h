@@ -178,8 +178,17 @@ public:
      * @brief Constructor with sample rate specification
      * @param rate Sample rate for measurements (default: 100Hz)
      * @param address I2C address (default: 0x50)
+     * @param wire TwoWire interface to use (default: Wire)
      */
-    FDC1004(fdc1004_sample_rate_t rate = FDC1004_RATE_100HZ, uint8_t address = FDC1004_I2C_ADDRESS);
+    FDC1004(fdc1004_sample_rate_t rate = FDC1004_RATE_100HZ, uint8_t address = FDC1004_I2C_ADDRESS, TwoWire* wire = &Wire);
+    
+    /**
+     * @brief Constructor with TwoWire interface specification
+     * @param wire TwoWire interface to use
+     * @param rate Sample rate for measurements (default: 100Hz)
+     * @param address I2C address (default: 0x50)
+     */
+    FDC1004(TwoWire* wire, fdc1004_sample_rate_t rate = FDC1004_RATE_100HZ, uint8_t address = FDC1004_I2C_ADDRESS);
     
     /**
      * @brief Legacy constructor for backward compatibility
@@ -325,6 +334,7 @@ private:
     fdc1004_sample_rate_t _sample_rate; ///< Current sample rate
     uint8_t _capdac_values[4];          ///< Current CAPDAC values for each channel
     bool _device_initialized;           ///< Initialization status
+    TwoWire* _wire;                     ///< TwoWire interface for I2C communication
     
     // =========================================================================
     // Private Methods - I2C Communication

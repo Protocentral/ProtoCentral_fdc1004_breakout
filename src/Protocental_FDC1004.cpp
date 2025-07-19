@@ -42,8 +42,18 @@ static const uint8_t SAMPLE_DELAYS_MS[] = {11, 11, 6, 3}; // Delays for 100Hz, 2
 // Constructors and Initialization
 // =============================================================================
 
-FDC1004::FDC1004(fdc1004_sample_rate_t rate, uint8_t address)
-    : _i2c_address(address), _sample_rate(rate), _device_initialized(false)
+FDC1004::FDC1004(fdc1004_sample_rate_t rate, uint8_t address, TwoWire* wire)
+    : _i2c_address(address), _sample_rate(rate), _device_initialized(false), _wire(wire)
+{
+    // Initialize CAPDAC values to zero
+    for (int i = 0; i < 4; i++)
+    {
+        _capdac_values[i] = 0;
+    }
+}
+
+FDC1004::FDC1004(TwoWire* wire, fdc1004_sample_rate_t rate, uint8_t address)
+    : _i2c_address(address), _sample_rate(rate), _device_initialized(false), _wire(wire)
 {
     // Initialize CAPDAC values to zero
     for (int i = 0; i < 4; i++)
@@ -53,7 +63,7 @@ FDC1004::FDC1004(fdc1004_sample_rate_t rate, uint8_t address)
 }
 
 FDC1004::FDC1004(uint16_t rate)
-    : _i2c_address(FDC1004_I2C_ADDRESS), _device_initialized(false)
+    : _i2c_address(FDC1004_I2C_ADDRESS), _device_initialized(false), _wire(&Wire)
 {
     // Legacy constructor - convert rate to new enum
     switch (rate)
@@ -81,6 +91,9 @@ FDC1004::FDC1004(uint16_t rate)
 
 bool FDC1004::begin()
 {
+    // Initialize the TwoWire interface
+    _wire->begin();
+    
     // Check if device is responding
     if (!isConnected())
     {
@@ -385,12 +398,12 @@ uint16_t FDC1004::read16(uint8_t reg)
 
 fdc1004_error_t FDC1004::writeRegister16(uint8_t reg, uint16_t data)
 {
-    Wire.beginTransmission(_i2c_address);
-    Wire.write(reg);
-    Wire.write((uint8_t)(data >> 8)); // MSB first
-    Wire.write((uint8_t)(data));      // LSB second
+    _wire->beginTransmission(_i2c_address);
+    _wire->write(reg);
+    _wire->write((uint8_t)(data >> 8)); // MSB first
+    _wire->write((uint8_t)(data));      // LSB second
 
-    uint8_t error = Wire.endTransmission();
+    uint8_t error = _wire->endTransmission();
     return (error == 0) ? FDC1004_SUCCESS : FDC1004_ERROR_I2C_COMMUNICATION;
 }
 
@@ -401,22 +414,22 @@ fdc1004_error_t FDC1004::readRegister16(uint8_t reg, uint16_t *data)
         return FDC1004_ERROR_INVALID_PARAMETER;
     }
 
-    Wire.beginTransmission(_i2c_address);
-    Wire.write(reg);
-    uint8_t error = Wire.endTransmission();
+    _wire->beginTransmission(_i2c_address);
+    _wire->write(reg);
+    uint8_t error = _wire->endTransmission();
 
     if (error != 0)
     {
         return FDC1004_ERROR_I2C_COMMUNICATION;
     }
 
-    uint8_t bytes_received = Wire.requestFrom(_i2c_address, (uint8_t)2);
+    uint8_t bytes_received = _wire->requestFrom(_i2c_address, (uint8_t)2);
     if (bytes_received != 2)
     {
         return FDC1004_ERROR_I2C_COMMUNICATION;
     }
 
-    *data = ((uint16_t)Wire.read() << 8) | Wire.read();
+    *data = ((uint16_t)_wire->read() << 8) | _wire->read();
     return FDC1004_SUCCESS;
 }
 

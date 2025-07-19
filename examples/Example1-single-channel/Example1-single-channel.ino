@@ -17,6 +17,10 @@
 //    A4     -> SDA
 //    A5     -> SCL
 //
+//    For boards with multiple I2C interfaces (ESP32, Arduino Mega, etc.):
+//    You can use Wire1 or other I2C interfaces by modifying the constructor.
+//    See the constructor examples below.
+//
 //    This software is licensed under the MIT License(http://opensource.org/licenses/MIT).
 //
 //   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
@@ -32,15 +36,32 @@
 #include <Wire.h>
 #include <Protocentral_FDC1004.h>
 
-// Create FDC1004 instance with 100Hz sample rate
+// Constructor Options - Choose one of the following:
+
+// Option 1: Default Wire interface (backwards compatible)
 FDC1004 capacitanceSensor(FDC1004_RATE_100HZ);
+
+// Option 2: Specify custom I2C interface (for boards with multiple I2C ports)
+// FDC1004 capacitanceSensor(&Wire1, FDC1004_RATE_100HZ);
+
+// Option 3: Alternative syntax with TwoWire as third parameter
+// FDC1004 capacitanceSensor(FDC1004_RATE_100HZ, FDC1004_I2C_ADDRESS, &Wire1);
+
+// Option 4: Custom I2C address with default Wire
+// FDC1004 capacitanceSensor(FDC1004_RATE_100HZ, 0x51); // Different address
 
 void setup() {
     Serial.begin(115200);
+    
+    // Initialize I2C interface
+    // Note: If using Wire1 or custom I2C interface, initialize that instead
+    // Example for ESP32 with custom pins: Wire1.begin(21, 22);
     Wire.begin();
     
     Serial.println("FDC1004 Capacitance Sensor");
     Serial.println("==========================");
+    Serial.println("Using default Wire interface");
+    Serial.println();
     
     // Initialize the sensor with error checking
     if (capacitanceSensor.begin()) {

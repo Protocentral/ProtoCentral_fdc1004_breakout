@@ -7,6 +7,7 @@
 //    - Automatic CAPDAC adjustment
 //    - Simple tabular output format
 //    - Error handling and status reporting
+//    - Multiple I2C interface options
 //
 //    Author: Ashwin Whitchurch
 //    Copyright (c) 2018-2025 Protocentral Electronics
@@ -20,6 +21,10 @@
 //    A4     -> SDA
 //    A5     -> SCL
 //
+//    For boards with multiple I2C interfaces (ESP32, Arduino Mega, etc.):
+//    You can use Wire1 or other I2C interfaces by modifying the constructor.
+//    See the constructor examples below.
+//
 //    This software is licensed under the MIT License(http://opensource.org/licenses/MIT).
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -27,8 +32,19 @@
 #include <Wire.h>
 #include <Protocentral_FDC1004.h>
 
-// Create FDC1004 instance with 100Hz sample rate
+// Constructor Options - Choose one of the following:
+
+// Option 1: Default Wire interface (backwards compatible)
 FDC1004 capacitanceSensor(FDC1004_RATE_100HZ);
+
+// Option 2: Use Wire1 interface (for ESP32, Arduino Mega, etc.)
+// FDC1004 capacitanceSensor(&Wire1, FDC1004_RATE_100HZ);
+
+// Option 3: Custom sample rate with Wire1
+// FDC1004 capacitanceSensor(&Wire1, FDC1004_RATE_200HZ);
+
+// Option 4: Alternative syntax with TwoWire as third parameter
+// FDC1004 capacitanceSensor(FDC1004_RATE_100HZ, FDC1004_I2C_ADDRESS, &Wire1);
 
 // Configuration
 const uint8_t NUM_CHANNELS = 4;
@@ -37,10 +53,17 @@ const uint16_t MEASUREMENT_DELAY_MS = 500; // Delay between complete channel sca
 void setup()
 {
     Serial.begin(115200);
+    
+    // Initialize I2C interface
+    // Note: If using Wire1 or custom I2C interface, initialize that instead
+    // Example for ESP32 with custom pins: Wire1.begin(21, 22);
+    // Example for Arduino Mega: Wire1.begin();
     Wire.begin();
 
     Serial.println("FDC1004 Multi-Channel Capacitance Measurement");
     Serial.println("============================================");
+    Serial.println("Using default Wire interface");
+    Serial.println();
 
     // Initialize the sensor
     if (capacitanceSensor.begin())
