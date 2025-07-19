@@ -6,7 +6,6 @@ Protocentral FDC1004 capacitance sensor breakout board
 
 ![FDC1004 Breakout](docs/images/fdc1004_brk.jpg) 
 
-
 The FDC1004 is a single-chip IC for capacitance measurement for application including proximity sensing and liquid level sensing. This is based on the concept of measuring capacitance of an electrode with respect to ground.
 
 This breakout board contains everything to connect it to an Arduino's I2C pins and it can be connected to any other platform with support for I2C two-wire interfaces.
@@ -23,13 +22,45 @@ Connection with the Arduino board is as follows:
  | Vcc                | 5V                    |  Power             |
  | SDA                | A4                    |  Serial Data       |
 
+## Software Features
 
+### Multiple I2C Interface Support
+The library now supports using different I2C interfaces (Wire, Wire1, etc.) on boards that have multiple I2C ports like ESP32, Arduino Mega, etc.
+
+#### Basic Usage (Default Wire Interface)
+```cpp
+#include <Wire.h>
+#include <Protocentral_FDC1004.h>
+
+FDC1004 sensor(FDC1004_RATE_100HZ);
+
+void setup() {
+    Wire.begin();
+    sensor.begin();
+}
+```
+
+#### Custom I2C Interface Usage
+```cpp
+#include <Wire.h>
+#include <Protocentral_FDC1004.h>
+
+// Method 1: TwoWire pointer as first parameter
+FDC1004 sensor(&Wire1, FDC1004_RATE_100HZ);
+
+// Method 2: TwoWire pointer as third parameter
+// FDC1004 sensor(FDC1004_RATE_100HZ, FDC1004_I2C_ADDRESS, &Wire1);
+
+void setup() {
+    Wire1.begin(); // or Wire1.begin(SDA_PIN, SCL_PIN) for ESP32
+    sensor.begin();
+}
+```
+
+### Backwards Compatibility
+All existing code will continue to work without modification. The library maintains full backwards compatibility with the original Wire interface.
 
 ## For further details, refer [the documentation on FDC1004 breakout board](https://docs.protocentral.com/getting-started-with-FDC1004/)
-
-
-
-
 
 License Information
 ===================
