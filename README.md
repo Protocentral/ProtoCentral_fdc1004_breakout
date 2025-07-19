@@ -57,9 +57,6 @@ void setup() {
 }
 ```
 
-### Backwards Compatibility
-All existing code will continue to work without modification. The library maintains full backwards compatibility with the original Wire interface.
-
 ## For further details, refer [the documentation on FDC1004 breakout board](https://docs.protocentral.com/getting-started-with-FDC1004/)
 
 License Information
