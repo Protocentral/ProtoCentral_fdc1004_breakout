@@ -231,7 +231,14 @@ fdc1004_error_t FDC1004::configureMeasurementSingle(fdc1004_measurement_t measur
     // Build 16-bit configuration
     uint16_t configuration_data = 0;
     configuration_data |= ((uint16_t)channel) << FDC1004_CONF_MEAS_CHA_SHIFT;            // CHA
-    configuration_data |= FDC1004_CONF_MEAS_CHB_DISABLED << FDC1004_CONF_MEAS_CHB_SHIFT; // CHB disable
+    
+    // Select CHB mode: when CAPDAC is active, use CAPDAC mode (0x4), otherwise disable CHB (0x7)
+    if (capdac > 0) {
+        configuration_data |= FDC1004_CONF_MEAS_CHB_CAPDAC << FDC1004_CONF_MEAS_CHB_SHIFT; // CHB CAPDAC mode
+    } else {
+        configuration_data |= FDC1004_CONF_MEAS_CHB_DISABLED << FDC1004_CONF_MEAS_CHB_SHIFT; // CHB disable
+    }
+    
     configuration_data |= ((uint16_t)capdac) << FDC1004_CONF_MEAS_CAPDAC_SHIFT;          // CAPDAC value
 
     return writeRegister16(MEASUREMENT_CONFIG_REGISTERS[measurement], configuration_data);
