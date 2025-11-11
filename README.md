@@ -59,6 +59,14 @@ void setup() {
 
 ## For further details, refer [the documentation on FDC1004 breakout board](https://docs.protocentral.com/getting-started-with-FDC1004/)
 
+## Contributors & Acknowledgments
+
+We appreciate contributions from our community that help improve this library. Special thanks to:
+
+- **@Benicz** - For identifying and reporting the critical CAPDAC hardware configuration bug (v2.0.1).
+
+If you've contributed to this project, please let us know!
+
 License Information
 ===================
 
