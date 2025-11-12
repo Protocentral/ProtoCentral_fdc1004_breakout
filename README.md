@@ -2,7 +2,8 @@ Protocentral FDC1004 capacitance sensor breakout board
 ================================
 [![Compile Examples](https://github.com/Protocentral/ProtoCentral_fdc1004_breakout/workflows/Compile%20Examples/badge.svg)](https://github.com/Protocentral/ProtoCentral_fdc1004_breakout/actions?workflow=Compile+Examples) 
 
-## Don't have one? [Buy it here](https://protocentral.com/product/protocentral-fdc1004-capacitance-sensor-breakout-board/)
+### Don't have one? [Buy it here](https://protocentral.com/product/protocentral-fdc1004-capacitance-sensor-breakout-board/)
+### Looking for a more integrated solution? [Check out our FDC1004 & ESP32-S3 based Sensything CAP](https://protocentral.com/product/protocentral-sensything-cap-wireless-pulse-sensor-kit-based-on-afe4400-esp32/)
 
 ![FDC1004 Breakout](docs/images/fdc1004_brk.jpg) 
 
