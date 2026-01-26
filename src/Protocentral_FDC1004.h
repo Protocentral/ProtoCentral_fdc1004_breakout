@@ -136,7 +136,7 @@ typedef enum {
  * @brief Raw measurement data structure
  */
 typedef struct {
-    int16_t value;      ///< Raw capacitance measurement value
+    int32_t value;      ///< Raw capacitance measurement value
     uint8_t capdac;     ///< CAPDAC offset used for this measurement
 } fdc1004_raw_measurement_t;
 

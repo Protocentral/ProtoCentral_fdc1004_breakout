@@ -341,7 +341,14 @@ fdc1004_error_t FDC1004::getRawCapacitance(fdc1004_channel_t channel, fdc1004_ra
         return result;
     }
 
-    value->value = (int16_t)raw_measurement[0];
+    uint32_t combined = ((uint32_t)raw_measurement[0] << 8) | ((raw_measurement[1] >> 8) & 0xFF);
+
+    if (combined & 0x800000)
+    {
+        combined |= 0xFF000000;
+    }
+
+    value->value = static_cast<int32_t>(combined);
     value->capdac = capdac;
 
     return FDC1004_SUCCESS;
