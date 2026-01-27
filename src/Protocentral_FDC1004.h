@@ -87,6 +87,14 @@
 #define ATTOFARADS_UPPER_WORD (457) //number of attofarads for each 8th most lsb (lsb of the upper 16 bit half-word)
 #define FEMTOFARADS_CAPDAC (3028) //number of femtofarads for each lsb of the capdac
 
+// Conversion constants
+constexpr float FDC1004_PICOFARADS_DIVISOR = 0x80000;
+constexpr float FDC1004_PICOFARADS_CAPDAC = 3.125f;
+
+// Measurement bounds for CAPDAC adjustment
+constexpr int32_t FDC1004_UPPER_BOUND = 0x7FFFFF;
+constexpr int32_t FDC1004_LOWER_BOUND = 0x800000;
+
 // =============================================================================
 // Data Types and Enumerations
 // =============================================================================
@@ -136,7 +144,7 @@ typedef enum {
  * @brief Raw measurement data structure
  */
 typedef struct {
-    int16_t value;      ///< Raw capacitance measurement value
+    int32_t value;      ///< Raw capacitance measurement value
     uint8_t capdac;     ///< CAPDAC offset used for this measurement
 } fdc1004_raw_measurement_t;
 
@@ -380,7 +388,7 @@ private:
      * @param capdac CAPDAC value used
      * @return Capacitance in picofarads
      */
-    float convertToPicofarads(int16_t raw_value, uint8_t capdac) const;
+    float convertToPicofarads(int32_t raw_value, uint8_t capdac) const;
     
     /**
      * @brief Validate input parameters
