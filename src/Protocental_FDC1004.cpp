@@ -472,14 +472,9 @@ uint8_t FDC1004::getMeasurementDelay() const
     }
 }
 
-float FDC1004::convertToPicofarads(int16_t raw_value, uint8_t capdac) const
+float FDC1004::convertToPicofarads(int32_t raw_value, uint8_t capdac) const
 {
-    // Convert from raw measurement to picofarads
-    float capacitance_af = (float)FDC1004_ATTOFARADS_UPPER_WORD * (float)raw_value;  // attofarads
-    float capacitance_pf = capacitance_af / 1000000.0f;                              // Convert to picofarads
-    capacitance_pf += ((float)FDC1004_FEMTOFARADS_CAPDAC * (float)capdac) / 1000.0f; // Add CAPDAC offset
-
-    return capacitance_pf;
+    return ((float)raw_value / (float)FDC1004_PICOFARADS_DIVISOR) + (FDC1004_PICOFARADS_CAPDAC * (float)capdac);
 }
 
 bool FDC1004::isValidChannel(uint8_t channel) const
